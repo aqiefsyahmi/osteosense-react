@@ -1,7 +1,7 @@
 import React from "react";
 // import Header from "../components/Header";
 // import Navigation from "../components/NavigationAdmin";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 export default function Admin() {
   const navigate = useNavigate();
@@ -45,6 +45,10 @@ export default function Admin() {
         <button className="btn btn-sm btn-primary" onClick={historyanalysis}>
           See History Report Analysis
         </button>
+
+        <Link to="/test" className="btn btn-success">
+          Test Page
+        </Link>
       </table>
     </>
   );
