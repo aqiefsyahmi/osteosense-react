@@ -54,16 +54,84 @@
 // }
 
 // export default App;
+// import React, { useState } from "react";
+// import { BrowserRouter, Routes, Route } from "react-router-dom";
+// import Login from "./pages/Login";
+// import Doctors from "./pages/doctors/Doctors";
+// import Admin from "./pages/admin/Admin";
+// import ListUserPage from "./pages/ListUserPage";
+// import CreateUser from "./pages/CreateUser";
+// import EditUser from "./pages/EditUser";
+// import useToken from "./pages/useToken";
+// import AdminHeader from "./components/AdminHeader";
+
+// function App() {
+//   const { token, removeToken, setToken } = useToken();
+//   const [role, setRole] = useState("");
+
+//   const handleLogin = (response, isAdmin) => {
+//     const tokenKey = isAdmin ? "admin_token" : "doctor_token";
+//     setToken(response.data[tokenKey]);
+//     setRole(isAdmin ? "admin" : "doctor");
+//     alert("Successfully Logged in");
+//     localStorage.setItem("email", response.data.email);
+//   };
+
+//   return (
+//     <div className="vh-100 gradient-custom">
+//       <BrowserRouter>
+//         {!token && token !== "" && token !== undefined ? (
+//           <Login setToken={setToken} handleLogin={handleLogin} />
+//         ) : (
+//           <>
+//             <AdminHeader removeToken={removeToken} />
+//             <Routes>
+//               <Route
+//                 path="/doctors"
+//                 element={
+//                   <Doctors
+//                     token={token}
+//                     setToken={setToken}
+//                     removeToken={removeToken}
+//                   />
+//                 }
+//               />
+
+//               <Route
+//                 path="/admin"
+//                 element={
+//                   <Admin
+//                     token={token}
+//                     setToken={setToken}
+//                     removeToken={removeToken}
+//                   />
+//                 }
+//               />
+
+//               <Route path="/test" element={<ListUserPage />} />
+
+//               <Route path="/addnewuser" element={<CreateUser />} />
+
+//               <Route path="/user/:id/edit" element={<EditUser />} />
+//             </Routes>
+//           </>
+//         )}
+//       </BrowserRouter>
+//     </div>
+//   );
+// }
+
+// export default App;
 import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import Doctors from "./pages/doctors/Doctors";
-import Admin from "./pages/admin/Admin";
 import ListUserPage from "./pages/ListUserPage";
 import CreateUser from "./pages/CreateUser";
 import EditUser from "./pages/EditUser";
 import useToken from "./pages/useToken";
-import Header from "./components/Header";
+import AdminHeader from "./components/AdminHeader";
+import DoctorsHeader from "./components/DoctorsHeader";
 
 function App() {
   const { token, removeToken, setToken } = useToken();
@@ -84,16 +152,16 @@ function App() {
           <Login setToken={setToken} handleLogin={handleLogin} />
         ) : (
           <>
-            <Header token={removeToken} role={role} />
+            {role === "admin" ? (
+              <AdminHeader removeToken={removeToken} />
+            ) : (
+              <DoctorsHeader removeToken={removeToken} />
+            )}
+
             <Routes>
               <Route
                 path="/doctors"
                 element={<Doctors token={token} setToken={setToken} />}
-              />
-
-              <Route
-                path="/admin"
-                element={<Admin token={token} setToken={setToken} />}
               />
 
               <Route path="/test" element={<ListUserPage />} />
