@@ -123,3 +123,8 @@ body {
   font-weight: 900;
   font-style: italic;
 }
+.w-56 {
+  width: 100%;
+  position: fixed;
+  left: 0;
+}
