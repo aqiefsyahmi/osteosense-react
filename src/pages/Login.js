@@ -299,7 +299,7 @@ import loginPageImage from "../image/loginpage.png";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-export default function Login({ setToken, handleLogin }) {
+export default function Login({ handleLogin }) {
   const navigate = useNavigate();
   const [loginForm, setLoginForm] = useState({
     email: "",
@@ -318,7 +318,7 @@ export default function Login({ setToken, handleLogin }) {
   const handleLoginSubmit = (event) => {
     const url = isAdmin
       ? "http://127.0.0.1:5000/logintokenadmin"
-      : "http://127.0.0.1:5000/logintoken";
+      : "http://127.0.0.1:5000/logintokendoctors";
 
     axios
       .post(url, {
