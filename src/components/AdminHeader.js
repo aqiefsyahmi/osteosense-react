@@ -282,18 +282,12 @@
 // }
 import axios from "axios";
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import Admin from "../pages/admin/Admin";
-import ManageProfileAdmin from "../pages/admin/ManageProfileAdmin";
+import { Link, useNavigate, Outlet } from "react-router-dom";
 import adminicon from "../image/adminicon.png";
-import ListUserPage from "../pages/ListUserPage";
-import CreateUser from "../pages/CreateUser";
-import EditUser from "../pages/EditUser";
 
 export default function AdminHeader(props) {
   const navigate = useNavigate();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [currentPage, setCurrentPage] = useState("admin");
 
   const logMeOut = () => {
     axios({
@@ -319,29 +313,31 @@ export default function AdminHeader(props) {
   };
 
   const navigateToPage = (page) => {
-    setCurrentPage(page);
     navigate(page);
-  };
-
-  const goToTestPage = () => {
-    setCurrentPage("test");
-    navigate("/test");
   };
 
   return (
     <div className="flex">
       {isSidebarOpen && (
-        <div className="w-56 bg-gray-800 text-white">
+        <div className="w-56 bg-[#4A00FF] text-white border-r-2 divide-y border-[#00000036] shadow-xl">
           <div className="p-4">
-            <h1 className="text-2xl font-semibold">Sidebar</h1>
+            <h1 className="text-2xl font-semibold">OsteoSense</h1>
             <ul className="mt-4">
               <li className="mb-2">
-                <button onClick={() => navigateToPage("admin")}>Home</button>
+                <button
+                  onClick={() => navigateToPage("admin")}
+                  className="block hover:text-indigo-400"
+                >
+                  Dashboard
+                </button>
               </li>
               <li className="mb-2">
-                <a href="#" className="block hover:text-indigo-400">
+                <button
+                  onClick={() => navigateToPage("admin")}
+                  className="block hover:text-indigo-400"
+                >
                   About
-                </a>
+                </button>
               </li>
               <li className="mb-2">
                 <a href="#" className="block hover:text-indigo-400">
@@ -354,7 +350,10 @@ export default function AdminHeader(props) {
                 </a>
               </li>
               <li className="mb-2">
-                <button onClick={() => navigateToPage("manageprofileadmin")}>
+                <button
+                  onClick={() => navigateToPage("manageprofileadmin")}
+                  className="block hover:text-indigo-400"
+                >
                   Edit Profile
                 </button>
               </li>
@@ -393,7 +392,7 @@ export default function AdminHeader(props) {
             <div className="flex-1">
               <button
                 className="btn btn-ghost text-white text-lg"
-                onClick={() => navigateToPage("home")}
+                onClick={() => navigateToPage("admin")}
               >
                 OsteoSense
               </button>
@@ -445,11 +444,7 @@ export default function AdminHeader(props) {
           </div>
         </div>
         <div className="flex-1 overflow-auto p-4">
-          {currentPage === "admin" && <Admin />}{" "}
-          {currentPage === "manageprofileadmin" && <ManageProfileAdmin />}
-          {currentPage === "test" && <ListUserPage />}{" "}
-          {currentPage === "addnewuser" && <CreateUser />}
-          {currentPage === "user/:id/edit" && <EditUser />}
+          <Outlet />
         </div>
       </div>
     </div>
